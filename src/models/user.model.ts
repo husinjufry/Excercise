@@ -14,10 +14,14 @@ export class User {
   @Column()
   password: string;
 
-  constructor(id: number, name: string, email: string, password: string) {
+  @Column({nullable: true})
+  pin: string;
+
+  constructor(id: number, name: string, email: string, password: string, pin: string) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
+    this.pin = pin;
   }
 }
