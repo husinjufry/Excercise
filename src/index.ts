@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { Database } from './config/db';
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
+import atmRoutes from './routes/atm.routes';
 import { errorHandler } from './middlewares/errorHandler';
 import { logger } from './middlewares/logger';
 
@@ -11,9 +12,11 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(logger);
+app.use(express.static(__dirname));
 
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/atm', atmRoutes);
 
 app.use(errorHandler);
 
@@ -27,3 +30,5 @@ Database.initialize()
   .catch((err) => {
     console.error("Error during Data Source initialization", err);
   });
+
+  

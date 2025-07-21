@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ATM Machine</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+
+    .atm-container {
+      background-color: #1e2a38;
+      border-radius: 12px;
+      padding: 30px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+    }
+
+    #pin-display {
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: 10px;
+      padding: 10px;
+      border: 2px solid #00c853;
+      background: #111;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .keypad button {
+      padding: 18px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00c853;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .keypad button:hover {
+      background-color: #00a043;
+    }
+
+    button.action-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    #atm-menu {
+      display: none;
+      margin-top: 20px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    #balance {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    /* Toast Styles */
+    #toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .toast {
+      background-color: #444;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      animation: fadein 0.3s, fadeout 0.3s 2.7s;
+    }
+
+    .toast.success { background-color: #28a745; }
+    .toast.error { background-color: #dc3545; }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeout {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="atm-container">
+    <h1>ATM Login</h1>
+
+    <div id="pin-display">____</div>
+    <div class="keypad">
+      <button onclick="appendDigit('1')">1</button>
+      <button onclick="appendDigit('2')">2</button>
+      <button onclick="appendDigit('3')">3</button>
+      <button onclick="appendDigit('4')">4</button>
+      <button onclick="appendDigit('5')">5</button>
+      <button onclick="appendDigit('6')">6</button>
+      <button onclick="appendDigit('7')">7</button>
+      <button onclick="appendDigit('8')">8</button>
+      <button onclick="appendDigit('9')">9</button>
+      <button onclick="clearPin()">C</button>
+      <button onclick="appendDigit('0')">0</button>
+      <button onclick="login()">⏎</button>
+    </div>
+
+    <div id="atm-menu">
+      <h2>Welcome!</h2>
+      <p id="balance">Balance: </p>
+
+      <h3>Deposit</h3>
+      <input type="number" id="depositAmount" placeholder="Amount" />
+      <button class="action-btn" onclick="deposit()">Deposit</button>
+
+      <h3>Withdraw</h3>
+      <input type="number" id="withdrawAmount" placeholder="Amount" />
+      <button class="action-btn" onclick="withdraw()">Withdraw</button>
+
+      <h3>Transfer</h3>
+      <input type="number" id="transferAmount" placeholder="Amount" />
+      <input type="number" id="targetAccountId" placeholder="Target Account ID" />
+      <button class="action-btn" onclick="transfer()">Transfer</button>
+
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/atm.js"></script>
+</body>
+</html>
